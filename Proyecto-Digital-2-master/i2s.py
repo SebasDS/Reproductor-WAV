@@ -113,19 +113,19 @@ class _I2S(Module, AutoCSR):
             )
         ]
         ########################################################################################3
-        self.submodules.i2s_fsm = FSM(reset_state="IDLE")
-        self.i2s_fsm.act("IDLE",
+        self.submodules.i2s_repro_fsm = FSM(reset_state="IDLE")
+        self.i2s_repro_fsm.act("IDLE",
             If(play,
                 NextState("RESET_CLOCKS")
             )
         )
-        self.i2s_fsm.act("RESET_CLOCKS",
+        self.i2s_repro_fsm.act("RESET_CLOCKS",
             NextValue(counter_bck, 0),
             NextValue(counter_scl, 0),
             NextValue(counter_ws, 0),
             NextState("MEMORY")
         )
-        self.i2s_fsm.act("SERIALIZAR",
+        self.i2s_repro_fsm.act("SERIALIZAR",
             If(load_bit,
                 If(width_word == 16,
                     NextValue(sd, buffer[15]),
@@ -142,7 +142,7 @@ class _I2S(Module, AutoCSR):
                 NextState("LOAD")
             )
         )
-        self.i2s_fsm.act("LOAD",
+        self.i2s_repro_fsm.act("LOAD",
             If(~sel_mem,
                 NextValue(buffer,port_1.dat_r),
                 NextValue(port_1.adr, port_1.adr+1),
@@ -163,7 +163,7 @@ class _I2S(Module, AutoCSR):
                 ),
             )
         )
-        self.i2s_fsm.act("MEMORY",
+        self.i2s_repro_fsm.act("MEMORY",
             NextValue(sel_mem, sel_mem+1),
             NextState("LOAD")
 
