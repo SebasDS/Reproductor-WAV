@@ -1,0 +1,2 @@
+# Reproductor-WAV
+El proyecto corresponde a la implementación de un dispositivo reproductor de archivos de audio .wav, cuyo software se puede programar en lenguaje C. Su implementación está realizada en una tarjeta Nexys 4 utilizando el procesador LM32. Para la descripción de hardware se hizo uso de la herramienta Litex basada en Migen y sintetizadas en lenguaje Python, una herramienta bastante útil que permite la implementación del System On Chip de manera rápida.
